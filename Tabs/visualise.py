@@ -6,12 +6,13 @@ import streamlit as st
 # Import necessary functions from web_functions
 from web_functions import train_model
 
-# Suppress all warnings
-warnings.filterwarnings("ignore")
+
 
 def app(df, X, y):
     """This function creates the visualisation page"""
-
+    # Remove the warnings
+    warnings.filterwarnings('ignore')
+    st.set_option('deprecation.showPyplotGlobalUse', False)
     # Set the page title
     st.title("Visualise Some Demographics")
 
