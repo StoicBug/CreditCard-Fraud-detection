@@ -9,6 +9,6 @@ def app():
     """This function creates the about page"""
     st.balloons()
     st.title('Contact Us')
-    st.markdown('''### Name:Shiven''')
-    st.markdown('''### GitHub: [Shiven](https://github.com/shivensharma01)''')
+    st.markdown('''### Name:StoicBug''')
+    st.markdown('''### GitHub: [StoicBug](https://github.com/StoicBug)''')
     

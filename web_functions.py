@@ -5,24 +5,38 @@ import numpy as np
 import pandas as pd
 from sklearn.tree import DecisionTreeClassifier
 import streamlit as st
+import gdown
+import os
 
 
-@st.cache()
+
+st.cache_data()
 def load_data():
     """This function returns the preprocessed data"""
 
     # Load the Diabetes dataset into DataFrame.
-    df = pd.read_csv('breast-cancer.csv')
+    file_id = '1DiDDLCJE3DkD7Q7SolFMsAG4hladL5SU'
+    url = f'https://drive.google.com/uc?id={file_id}'
+    output = 'creditcard1.csv'
+    # Check if the file already exists locally
+    if not os.path.exists(output):
+        # Download the file only if it doesn't exist locally
+        gdown.download(url, output, quiet=False)
+    df = pd.read_csv(output)
+    #df = pd.read_csv('creditcard.csv')
 
     # Rename the column names in the DataFrame.
     
     # Perform feature and target split
-    X = df[['radius_mean','texture_mean','perimeter_mean','area_mean','smoothness_mean','compactness_mean','concavity_mean','symmetry_mean','fractal_dimension_mean']]
-    y = df['diagnosis']
+    # Feature selection
+    X = df.drop('Class', axis=1)
+
+    # Target selection
+    y = df['Class']
 
     return df, X, y
 
-@st.cache()
+st.cache_data()
 def train_model(X, y):
     """This function trains the model and return the model and model score"""
     # Create the model
