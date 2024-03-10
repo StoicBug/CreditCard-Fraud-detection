@@ -25,6 +25,8 @@ Tabs = {
 
 # Create a sidebar
 # Add title to sidebar
+
+st.sidebar.image("./images/enset.svg")
 st.sidebar.title("Navigation")
 
 # Create buttons to select the page
@@ -41,8 +43,13 @@ page = st.session_state.page if "page" in st.session_state else "Home"
 def set_page(selected_page):
     st.session_state.page = selected_page
 
+# Load data using st.cache
+@st.cache_data()
+def load_cached_data():
+    return load_data()
+
 # Loading the dataset.
-df, X, y = load_data()
+df, X, y = load_cached_data()
 
 # Call the app function of the selected page to run
 if page == "Visualisation":
