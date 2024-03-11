@@ -3,8 +3,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import streamlit as st
 
-# Import necessary functions from web_functions
-from web_functions import train_model
+
 
 
 

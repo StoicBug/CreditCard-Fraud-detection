@@ -1,5 +1,3 @@
-"""This module contains necessary function needed"""
-
 # Import necessary modules
 import numpy as np
 import pandas as pd
@@ -7,13 +5,15 @@ from sklearn.tree import DecisionTreeClassifier
 import streamlit as st
 import gdown
 import os
+import joblib
+import warnings
 
+warnings.filterwarnings('ignore')
+st.set_option('deprecation.showPyplotGlobalUse', False)
 
-
-st.cache_data()
+@st.cache_data()
 def load_data():
     """This function returns the preprocessed data"""
-
     # Load the Diabetes dataset into DataFrame.
     file_id = '1DiDDLCJE3DkD7Q7SolFMsAG4hladL5SU'
     url = f'https://drive.google.com/uc?id={file_id}'
@@ -23,10 +23,7 @@ def load_data():
         # Download the file only if it doesn't exist locally
         gdown.download(url, output, quiet=False)
     df = pd.read_csv(output)
-    #df = pd.read_csv('creditcard.csv')
 
-    # Rename the column names in the DataFrame.
-    
     # Perform feature and target split
     # Feature selection
     X = df.drop('Class', axis=1)
@@ -36,29 +33,21 @@ def load_data():
 
     return df, X, y
 
-st.cache_data()
-def train_model(X, y):
-    """This function trains the model and return the model and model score"""
-    # Create the model
-    model = DecisionTreeClassifier(
-            ccp_alpha=0.0, class_weight=None, criterion='entropy',
-            max_depth=4, max_features=None, max_leaf_nodes=None,
-            min_impurity_decrease=0.0, min_samples_leaf=1, 
-            min_samples_split=2, min_weight_fraction_leaf=0.0,
-            random_state=42, splitter='best'
-        )
-    # Fit the data on model
-    model.fit(X, y)
-    # Get the model score
-    score = model.score(X, y)
+@st.cache_data()
+def load_pretrained_model():
+    """This function loads the pre-trained model"""
+    # Specify the path to your pre-trained model
+    model_path = 'random_forest_model.joblib'
 
-    # Return the values
-    return model, score
+    # Load the pre-trained model
+    model = joblib.load(model_path)
 
-def predict(X, y, features):
-    # Get model and model score
-    model, score = train_model(X, y)
+    return model
+
+
+def predict(features):
+    """This function makes predictions using the pre-trained model"""
     # Predict the value
-    prediction = model.predict(np.array(features).reshape(1, -1))
+    prediction = load_pretrained_model().predict(np.array(features).reshape(1, -1))
 
-    return prediction, score
+    return prediction

@@ -26,6 +26,7 @@ Tabs = {
 # Create a sidebar
 # Add title to sidebar
 
+
 st.sidebar.image("./images/enset.svg")
 st.sidebar.title("Navigation")
 
@@ -50,6 +51,9 @@ def load_cached_data():
 
 # Loading the dataset.
 df, X, y = load_cached_data()
+
+import sklearn
+print(sklearn.__version__)
 
 # Call the app function of the selected page to run
 if page == "Visualisation":
