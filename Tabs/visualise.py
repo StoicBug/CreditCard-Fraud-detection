@@ -3,15 +3,12 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import streamlit as st
 
-
-
-
-
 def app(df, X, y):
     """This function creates the visualisation page"""
     # Remove the warnings
     warnings.filterwarnings('ignore')
     st.set_option('deprecation.showPyplotGlobalUse', False)
+    
     # Set the page title
     st.title("Visualise Some Demographics")
 
@@ -20,22 +17,26 @@ def app(df, X, y):
         # Create a checkbox to conditionally execute code
         if st.checkbox("Load Correlation Heatmap"):
             st.subheader("Correlation Heatmap")
-
-            fig = plt.figure(figsize=(25, 25))
-            ax = sns.heatmap(df.iloc[:, 1:].corr(), annot=True)
-            bottom, top = ax.get_ylim()
-            ax.set_ylim(bottom + 0.5, top - 0.5)
-            st.pyplot(fig)
+            
+            # Use st.spinner to indicate ongoing calculations
+            with st.spinner("Calculating..."):
+                fig = plt.figure(figsize=(25, 25))
+                ax = sns.heatmap(df.iloc[:, 1:].corr(), annot=True)
+                bottom, top = ax.get_ylim()
+                ax.set_ylim(bottom + 0.5, top - 0.5)
+                st.pyplot(fig)
 
     # Create an expander for boxplots
     with st.expander("Show Boxplots for Each Feature (Grouped by Class)"):
         # Create a checkbox to conditionally execute code
         if st.checkbox("Load Boxplots Details"):
-            for col in df.columns:
-                if col != 'Class':
-                    plt.figure(figsize=(10, 4))
-                    sns.boxplot(data=df, x='Class', y=col)
-                    st.pyplot()
+            # Use st.spinner to indicate ongoing calculations
+            with st.spinner("Calculating..."):
+                for col in df.columns:
+                    if col != 'Class':
+                        plt.figure(figsize=(10, 4))
+                        sns.boxplot(data=df, x='Class', y=col)
+                        st.pyplot()
 
     # Create an expander for individual variable distributions
     with st.expander("Show Individual Variable Distribution"):

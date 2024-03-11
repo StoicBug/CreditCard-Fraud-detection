@@ -7,11 +7,12 @@ import gdown
 import os
 import joblib
 import warnings
+from sklearn.tree import DecisionTreeClassifier, plot_tree
 
 warnings.filterwarnings('ignore')
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
-@st.cache_data()
+@st.cache_data
 def load_data():
     """This function returns the preprocessed data"""
     # Load the Diabetes dataset into DataFrame.
@@ -33,7 +34,7 @@ def load_data():
 
     return df, X, y
 
-@st.cache_data()
+@st.cache_resource
 def load_pretrained_model():
     """This function loads the pre-trained model"""
     # Specify the path to your pre-trained model
@@ -51,3 +52,17 @@ def predict(features):
     prediction = load_pretrained_model().predict(np.array(features).reshape(1, -1))
 
     return prediction
+
+def visualize_trees(current_tree_index):
+    model = load_pretrained_model()
+    
+    # Get the individual trees in the random forest
+    trees = model.estimators_
+    
+    st.subheader(f"Tree {current_tree_index + 1}")
+    st.write(f"The total number of trees in the forest is {len(trees)}")
+    plot_tree(trees[current_tree_index], filled=True, feature_names=load_data()[1].columns, class_names=["Normal", "Fraud"])
+    st.pyplot()
+
+def get_number_of_trees():
+    return len(load_pretrained_model().estimators_)

@@ -5,7 +5,7 @@ import streamlit as st
 from web_functions import load_data
 
 # Import pages
-from Tabs import home, data, predict, visualise, about
+from Tabs import home, data, predict, visualise, forest
 
 # Configure the app
 st.set_page_config(
@@ -17,7 +17,7 @@ st.set_page_config(
 # Dictionary for pages
 Tabs = {
     "Home": home,
-    "About": about,
+    "Forest": forest,
     "Data Info": data,
     "Prediction": predict,
     "Visualisation": visualise
@@ -32,7 +32,7 @@ st.sidebar.title("Navigation")
 
 # Create buttons to select the page
 selected_page_home = st.sidebar.button(label="Home", key="home_button", on_click=lambda: set_page("Home"), use_container_width=True)
-selected_page_about = st.sidebar.button(label="About", key="about_button", on_click=lambda: set_page("About"), use_container_width=True)
+selected_page_forest = st.sidebar.button(label="Forest", key="forest_button", on_click=lambda: set_page("Forest"), use_container_width=True)
 selected_page_data_info = st.sidebar.button(label="Data Info", key="data_info_button", on_click=lambda: set_page("Data Info"), use_container_width=True)
 selected_page_prediction = st.sidebar.button(label="Prediction", key="prediction_button", on_click=lambda: set_page("Prediction"), use_container_width=True)
 selected_page_visualisation = st.sidebar.button(label="Visualisation", key="visualisation_button", on_click=lambda: set_page("Visualisation"), use_container_width=True)
