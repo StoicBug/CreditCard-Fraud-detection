@@ -26,8 +26,6 @@ Tabs = {
 # Create a sidebar
 # Add title to sidebar
 
-
-st.sidebar.image("./images/enset.svg")
 st.sidebar.title("Navigation")
 
 # Create buttons to select the page
