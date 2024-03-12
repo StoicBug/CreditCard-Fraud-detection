@@ -16,21 +16,22 @@ st.set_option('deprecation.showPyplotGlobalUse', False)
 def load_data():
     """This function returns the preprocessed data"""
     # Load the Diabetes dataset into DataFrame.
-    file_id = '1DiDDLCJE3DkD7Q7SolFMsAG4hladL5SU'
-    url = f'https://drive.google.com/uc?id={file_id}'
-    output = 'creditcard1.csv'
+    #file_id = '1DiDDLCJE3DkD7Q7SolFMsAG4hladL5SU'
+    #url = f'https://drive.google.com/uc?id={file_id}'
+    #output = 'creditcard1.csv'
     # Check if the file already exists locally
-    if not os.path.exists(output):
+    #if not os.path.exists(output):
         # Download the file only if it doesn't exist locally
-        gdown.download(url, output, quiet=False)
-    df = pd.read_csv(output)
+        #gdown.download(url, output, quiet=False)
+    #df = pd.read_csv(output)
+    df =''
 
     # Perform feature and target split
     # Feature selection
-    X = df.drop('Class', axis=1)
+    X = ''
 
     # Target selection
-    y = df['Class']
+    y = ''
 
     return df, X, y
 
@@ -53,6 +54,9 @@ def predict(features):
 
     return prediction
 
+# Load column names from stats/columns.csv
+columns = pd.read_csv("stats/columns.csv").squeeze()
+
 def visualize_trees(current_tree_index):
     model = load_pretrained_model()
     
@@ -61,7 +65,7 @@ def visualize_trees(current_tree_index):
     
     st.subheader(f"Tree {current_tree_index + 1}")
     st.write(f"The total number of trees in the forest is {len(trees)}")
-    plot_tree(trees[current_tree_index], filled=True, feature_names=load_data()[1].columns, class_names=["Normal", "Fraud"])
+    plot_tree(trees[current_tree_index], filled=True, feature_names=columns, class_names=["Normal", "Fraud"])
     st.pyplot()
 
 def get_number_of_trees():

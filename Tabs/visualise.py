@@ -2,6 +2,7 @@ import warnings
 import matplotlib.pyplot as plt
 import seaborn as sns
 import streamlit as st
+import os
 
 def app(df, X, y):
     """This function creates the visualisation page"""
@@ -14,44 +15,36 @@ def app(df, X, y):
 
     # Create an expander for the correlation heatmap
     with st.expander("Show the correlation heatmap"):
-        # Create a checkbox to conditionally execute code
-        if st.checkbox("Load Correlation Heatmap"):
-            st.subheader("Correlation Heatmap")
-            
-            # Use st.spinner to indicate ongoing calculations
-            with st.spinner("Calculating..."):
-                fig = plt.figure(figsize=(25, 25))
-                ax = sns.heatmap(df.iloc[:, 1:].corr(), annot=True)
-                bottom, top = ax.get_ylim()
-                ax.set_ylim(bottom + 0.5, top - 0.5)
-                st.pyplot(fig)
-
+    # Use st.image to display the saved heatmap image
+        st.image("heatmap/heatmap.png")
     # Create an expander for boxplots
+    # Path to the directory containing the box plot images
+    boxplot_dir = "boxplot"
+
+    # Create an expander to show the box plots
     with st.expander("Show Boxplots for Each Feature (Grouped by Class)"):
         # Create a checkbox to conditionally execute code
         if st.checkbox("Load Boxplots Details"):
             # Use st.spinner to indicate ongoing calculations
             with st.spinner("Calculating..."):
-                for col in df.columns:
-                    if col != 'Class':
-                        plt.figure(figsize=(10, 4))
-                        sns.boxplot(data=df, x='Class', y=col)
-                        st.pyplot()
+                # Iterate over each file in the boxplot directory
+                for filename in os.listdir(boxplot_dir):
+                    # Check if the file is a PNG image
+                    if filename.endswith(".png"):
+                        # Display the image using st.image
+                        st.image(os.path.join(boxplot_dir, filename))
+
+    distribution_dir = "distribution"
 
     # Create an expander for individual variable distributions
     with st.expander("Show Individual Variable Distribution"):
         # Create a checkbox to conditionally execute code
         if st.checkbox("Load Individual Variable Distribution Details"):
-            numerical_features = [feature for feature in df.columns if df[feature].dtype != 'O']
-            for feature in numerical_features:
-                # Create a new figure for each feature
-                plt.figure(figsize=(10, 4))
-
-                try:
-                    sns.distplot(df[feature])
-
-                    # Show the distribution plot using Streamlit's pyplot function
-                    st.pyplot()
-                except Exception as e:
-                    # Handle exceptions (e.g., if the feature contains non-numeric values)
-                    st.warning(f"Unable to plot distribution for {feature}: {str(e)}")
+            # Use st.spinner to indicate ongoing calculations
+            with st.spinner("Calculating..."):
+                # Iterate over each file in the distribution directory
+                for filename in os.listdir(distribution_dir):
+                    # Check if the file is a PNG image
+                    if filename.endswith(".png"):
+                        # Display the image using st.image
+                        st.image(os.path.join(distribution_dir, filename))
