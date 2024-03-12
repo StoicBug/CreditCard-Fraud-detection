@@ -1,33 +1,47 @@
-# Breast Cancer Detection
+# Credit Card Fraud Detection
 
-![home](https://user-images.githubusercontent.com/64016811/218371012-5f116303-8625-4a07-9719-cf04b9fdcbd7.png)
+This project implements machine learning techniques for credit card fraud detection. It includes functionalities to upload a CSV file containing credit card transaction data, visualize data statistics, train a random forest model, and visualize decision trees within the model.
 
-### Problem : 
+## Table of Contents
 
-Substantial support for breast cancer awareness and research funding has helped create advances in the diagnosis and treatment of breast cancer. Breast cancer survival rates have increased, and the number of deaths associated with this disease is steadily declining, largely due to factors such as earlier detection, a new personalized approach to treatment and a better understanding of the disease.
+- [Installation](#installation)
+- [Usage](#usage)
+- [Dependencies](#dependencies)
+- [Contributing](#contributing)
+- [License](#license)
 
-### Solution:
+## Installation
 
-This Web app will help you to detect whether a person has Breast Cancer by analysing the values of several features using the Decision Tree Classifier.
+1. Clone the repository:
 
-### Idea: 
-Building an application that can predict the occurrence of a cardiac arrest or the possible causes of it by indicating the highly relevant factors. 
-
-### Layout
-
+```bash
+git clone <repository_url>
+cd credit-card-fraud-detection
 ```
-├───images
-├───Tabs
-│   └───__pycache__
-|   └─── home.py
-|   └─── data.py
-|   └─── predict.py
-|   └─── visualize.py
-|   └─── about.py
-└───__pycache__
-└─── main.py
-└─── web_functions.py
-└─── requirements.txt
+2. Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+## Usage
+1. Run the Streamlit app:
+```bash
+streamlit run app.py
 ```
 
+2. Access the app in your browser at [http://localhost:8501](http://localhost:8501).
 
+3. Upload a CSV file containing credit card transaction data.
+
+4. Explore data statistics, visualize individual variable distributions, and visualize the correlation heatmap.
+
+5. Train a random forest model and visualize decision trees within the model.
+
+## Dependencies
+
+- Python 3.x
+- Streamlit
+- scikit-learn
+- pandas
+- matplotlib
+- seaborn
