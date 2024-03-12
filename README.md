@@ -2,6 +2,10 @@
 
 This project implements machine learning techniques for credit card fraud detection. It includes functionalities to upload a CSV file containing credit card transaction data, visualize data statistics, train a random forest model, and visualize decision trees within the model.
 
+## Website
+
+Visit the website: [Credit Card Fraud Detection App](https://mlprojectbdcc.streamlit.app/)
+
 ## Table of Contents
 
 - [Installation](#installation)
